@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visa Card</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      .main_container {
+        display: flex;
+        flex-direction: column;
+        width: calc(100vw - 5vw);
+        /* max-width: 25rem; */
+        min-height: 12rem;
+        margin: auto;
+        justify-content: space-between;
+        padding: 30px;
+        border-radius: 24px;
+        background: black;
+      }
+
+      .logo_container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo_container_left {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .card_number {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: white;
+      }
+
+      .card_number input {
+        background: transparent;
+        color: white;
+        border: none;
+        font-size: 32px;
+      }
+
+      .expiry_container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        color: white;
+        gap: 40px;
+      }
+
+      .expiry {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .cvv {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        text-transform: uppercase;
+      }
+
+      .cvv input {
+        background: transparent;
+        color: white;
+        border: none;
+        width: 5rem;
+        font-size: 17px;
+      }
+
+      .card_holder {
+        color: white;
+        font-size: 20px;
+        text-transform: uppercase;
+      }
+
+      .footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .footer_left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .footer_text {
+        color: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .footer_text img {
+        width: 25px;
+        height: 25px;
+      }
+
+      @media all and (min-width: 300px) {
+        .card_number input {
+          width: 100%;
+        }
+        .expiry_container {
+          gap: 10px;
+        }
+        .expiry {
+          gap: 5px;
+        }
+        .cvv {
+          gap: 5px;
+        }
+        .cvv input {
+          width: 100%;
+        }
+        .card_number input {
+          font-size: 20px;
+        }
+        .card_holder {
+          font-size: 15px;
+        }
+        .footer {
+          font-size: 12px;
+        }
+        .footer_text {
+          gap: 4px;
+        }
+      }
+      @media all and (min-width: 576px) {
+        .expiry_container {
+          gap: 40px;
+        }
+        .footer {
+          font-size: 17px;
+        }
+        .footer_text {
+          gap: 12px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="main_container">
+      <div class="logo_container">
+        <div class="logo_container_left">
+          <img src="./icn_sim_new.png" width="50px" height="40px" />
+          <img src="./icn_signal_new.png" width="25px" height="20px" />
+        </div>
+        <div class="logo_container_right">
+          <img src="./app_icon_new.png" width="50px" height="40px" />
+        </div>
+      </div>
+      <div class="card_number">
+        <input
+          type="tel"
+          id="cardNumber"
+          value="{{spaceCardNumber}}"
+          width="fit-content"
+          disabled
+        />
+      </div>
+      <div class="expiry_container">
+        <div class="expiry">
+          <span> Expiry </span>
+          <span>{{modifiedExpiryDate}} </span>
+        </div>
+        <div class="cvv">
+          CVV <input type="password" value="{{cvv}}" id="hideCvvNumber" />
+        </div>
+      </div>
+      <div class="card_holder">{{nameOnCard}}</div>
+      <div class="footer">
+        <div class="footer_left">
+          <div class="footer_text" onclick="copyTextFromElement('cardNumber')">
+            <img src="./copyToClipBoard.svg" width="50px" height="40px" />
+            <span> Copy Number </span>
+          </div>
+          <div class="footer_text" onclick="switchVisibility()">
+            <img src="./eye.svg" width="50px" height="40px" />
+            <span> Show CVV </span>
+          </div>
+        </div>
+        <img src="./visa_new.png" width="70px" height="20px" />
+      </div>
+    </div>
+  </body>
+</html>
+
+<script type="text/javascript">
+  const switchVisibility = () => {
+    const cvvNumberField = document.querySelector("#hideCvvNumber");
+    if (cvvNumberField.getAttribute("type") === "tel") {
+      cvvNumberField.setAttribute("type", "password");
+    } else cvvNumberField.setAttribute("type", "tel");
+  };
+
+  function copyTextFromElement(elementID) {
+    let element = document.getElementById(elementID); //select the element
+    let elementText = element.value; //get the text content from the element
+    copyText(elementText); //use the copyText function below
+  }
+  //Copy Function
+  function copyText(text) {
+    navigator.clipboard.writeText(text);
+  }
+</script>
